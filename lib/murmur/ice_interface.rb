@@ -38,7 +38,6 @@ module Murmur
 
             conn = "tcp -h #{options[:host]} -p #{options[:port]}"
             proxy = ice_context.stringToProxy("Meta:#{conn}")
-            puts proxy.inspect
             @meta = add_proxy_router(Murmur::MetaPrx::checkedCast(proxy))
             raise "Invalid proxy" unless @meta
 
