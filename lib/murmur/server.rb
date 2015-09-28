@@ -34,7 +34,7 @@ module Murmur
         end
 
         def config
-            @config = @meta.getDefaultConfig.merge(@interface.getAllConf)
+            @config = @meta.getDefaultConf.merge(@interface.getAllConf)
         end
 
         def destroy!
