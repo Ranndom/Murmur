@@ -1,7 +1,7 @@
 module Murmur
     module API
         class User
-            
+
             def initialize(host, meta, server, user)
                 @host = host
                 @meta = meta
@@ -22,32 +22,72 @@ module Murmur
                 @user.mute
             end
 
+            def muted=(muted)
+                @user.mute = muted
+                update
+            end
+
             def deafened?
                 @user.deaf
+            end
+
+            def deafened=(deafened)
+                @user.deaf = deafened
+                update
             end
 
             def suppressed?
                 @user.suppress
             end
 
+            def suppressed=(suppressed)
+                @user.suppress = suppressed
+                update
+            end
+
             def priorityspeaker?
                 @user.prioritySpeaker
+            end
+
+            def priorityspeaker=(priorityspeaker)
+                @user.prioritySpeaker = priorityspeaker
+                update
             end
 
             def clientmuted?
                 @user.selfMute
             end
 
+            def clientmuted=(clientmuted)
+                @user.selfMute = clientmuted
+                update
+            end
+
             def clientdeafened?
                 @user.selfDeaf
+            end
+
+            def clientdeafened=(clientdeafened)
+                @user.selfDeaf = clientdeafened
+                update
             end
 
             def recording?
                 @user.recording
             end
 
+            def recording=(recording)
+                @user.recording
+                update
+            end
+
             def channel
                 @server.channel @user.channel
+            end
+
+            def channel=(channel)
+                @user.channel = channel
+                update
             end
 
             def server
@@ -58,10 +98,15 @@ module Murmur
                 @user.name
             end
 
+            def name=(name)
+                @user.name = name
+                update
+            end
+
             def seconds_connected
                 @user.onlinesecs 
             end
-            
+
             def seconds_idle
                 @user.idlesecs
             end
@@ -98,8 +143,18 @@ module Murmur
                 @user.comment
             end
 
+            def comment=(comment)
+                @user.comment = comment
+                update
+            end
+
             def tcponly?
                 @user.tcponly
+            end
+
+            def tcponly=(tcponly)
+                @user.tcponly = tcponly
+                update
             end
 
             def ping
@@ -113,6 +168,40 @@ module Murmur
             def tcpPing
                 ping[:tcp]
             end
+
+            def update
+                user_state = @server.getState(id)
+
+                {
+                    :muted? => :mute,
+                    :deafened? => :deaf,
+                    :suppressed? => :suppress,
+                    :priorityspeaker? => :prioritySpeaker,
+                    :clientmuted? => :selfMute,
+                    :clientdeafened? => :selfDeaf,
+                    :recording? => :recording,
+                    :tcponly? => :tcponly,
+                    :name => :name
+                }.each do |local, state|
+                    user_state.send("#{state}=", send(local))
+                end
+
+                # Set 'channel' normally.
+                user_state.channel = channel.id
+
+                @server.setState(user_state)
+            end 
+
+            # Aliases for update function to work properly.
+            # Maybe one day I'll fix this.
+            # alias :mute :muted?
+            # alias :deaf :deafened?
+            # alias :suppress :suppressed?
+            # alias :prioritySpeaker :priorityspeaker?
+            # alias :selfMute :clientmuted?
+            # alias :selfDeaf :clientdeafened?
+            # alias :recording :recording?
+            # alias :tcponly :tcponly?
 
         end
     end
