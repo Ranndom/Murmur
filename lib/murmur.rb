@@ -1,11 +1,12 @@
 require 'murmur/version'
 require 'murmur/ice_interface'
 require 'murmur/server'
+require 'murmur/channel'
 
 module Murmur
 
     def self.client(options={})
-        @client = Murmur::Meta.new(options)
+        @client = Murmur::API::Meta.new(options)
     end
 
     def self.method_missing(method, *args, &block)
