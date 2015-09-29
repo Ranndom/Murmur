@@ -11,11 +11,13 @@ Gem::Specification.new do |gem|
     gem.summary         = %q{A ruby client for controlling and querying the Mumble server (Murmur)}
     gem.homepage        = "https://github.com/Ranndom/Murmur"
 
+    gem.license         = "MIT"
+
     gem.files           = `git ls-files`.split($/)
     gem.test_files      = gem.files.grep(%r{^(test|spec)/})
     gem.require_paths   = ["lib"]
 
-    gem.add_runtime_dependency 'zeroc-ice'
+    gem.add_runtime_dependency 'zeroc-ice', '>= 3.6.1'
 
     gem.add_development_dependency 'rake'
 end
