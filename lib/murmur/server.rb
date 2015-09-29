@@ -46,8 +46,8 @@ module Murmur
 
             def channels
                 @channels = {}
-                @interface.getChannels.each do |channel|
-                    @channels[channel[:id]] = Channel.new(@host, @meta, self, channel)
+                @interface.getChannels.each do |_, channel|
+                    @channels[channel.id] = Channel.new(@host, @meta, self, channel)
                 end
                 @channels
             end
