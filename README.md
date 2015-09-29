@@ -25,7 +25,7 @@ require 'murmur'
 
 Murmur.client(
     :host => '127.0.0.1', # The host of the Murmur server.
-    :port => '', # The port of the Murmur server.
+    :port => '6502', # The port of the Murmur server.
     :glacier_user => '', # The user (if using Glacier2)
     :glacier_pass => '', # The password (if using Glacier2)
     :ice_secret => '') # The Ice secret.
