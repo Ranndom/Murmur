@@ -1,4 +1,5 @@
 require 'murmur/channel'
+require 'murmur/user'
 
 module Murmur
     module API
@@ -28,6 +29,7 @@ module Murmur
                 end
 
                 @channels = {}
+                @users = {}
             end
 
             def id
@@ -52,6 +54,20 @@ module Murmur
                 @channels
             end
 
+            def users
+                @users = {}
+                @interface.getUsers.each do |_, user|
+                    @users[user.session] = User.new(@host, @meta, self, user)
+                end
+                @users
+            end
+
+            def user(session)
+                users
+
+                @users[:session]
+            end
+
             def config
                 @config = @meta.getDefaultConf.merge(@interface.getAllConf)
             end
@@ -69,15 +85,18 @@ module Murmur
             end
 
             def [](key)
+                key = key.to_s
                 config[key]
             end
 
             def []=(key, val)
+                key - key.to_s
                 @interface.setConf(key, val.to_s)
                 @config = nil
             end
 
             def setConf(key, val)
+                key = key.to_s
                 self[key] = val
             end
 

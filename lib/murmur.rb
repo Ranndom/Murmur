@@ -2,6 +2,7 @@ require 'murmur/version'
 require 'murmur/ice_interface'
 require 'murmur/server'
 require 'murmur/channel'
+require 'murmur/user'
 
 module Murmur
 

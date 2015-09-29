@@ -52,6 +52,10 @@ server.channel 1
 server = Murmur.server 1
 channel = server.channel 1
 channel.name = "New name!"
+
+# Get the clients of a server
+server = Murmur.server 1
+users = server.users
 ```
 
 The #raw function on Murmur::API objects will return the raw Murmur object, allowing calling of unimplemented functions.
