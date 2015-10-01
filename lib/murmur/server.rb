@@ -30,6 +30,7 @@ module Murmur
 
                 @channels = {}
                 @users = {}
+                @registered_users = {}
             end
 
             def id
@@ -60,6 +61,14 @@ module Murmur
                     @users[user.session] = User.new(@host, @meta, self, user)
                 end
                 @users
+            end
+
+            def registered_users
+                @registered_users = {}
+                @interface.getRegisteredUsers.each do |_, user|
+                    @registered_users[user.session] = User.new(@host, @meta, self, user)
+                end
+                @registered_users
             end
 
             def user(session)

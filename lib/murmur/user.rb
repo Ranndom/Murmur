@@ -18,6 +18,10 @@ module Murmur
                 @user.userid
             end
 
+            def registered?
+                @user.userid != -1
+            end
+
             def muted?
                 @user.mute
             end
@@ -168,6 +172,12 @@ module Murmur
             def tcpPing
                 ping[:tcp]
             end
+
+            def kick!(reason="Kicked by server")
+                @server.kickUser(@user.session, reason)
+            end
+
+            private
 
             def update
                 user_state = @server.getState(id)
