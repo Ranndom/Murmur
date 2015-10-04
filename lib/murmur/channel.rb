@@ -67,6 +67,10 @@ module Murmur
                 update
             end
 
+            def raw
+                @channel
+            end
+
             private
 
             def update

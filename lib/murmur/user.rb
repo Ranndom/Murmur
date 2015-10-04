@@ -177,6 +177,10 @@ module Murmur
                 @server.kickUser(@user.session, reason)
             end
 
+            def raw
+                @user
+            end
+
             private
 
             def update

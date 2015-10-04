@@ -108,6 +108,10 @@ module Murmur
                 key = key.to_s
                 self[key] = val
             end
+            
+            def raw
+                @interface
+            end
 
             def method_missing(method, *args)
                 method = method.to_s

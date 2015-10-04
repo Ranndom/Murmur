@@ -85,7 +85,7 @@ module Murmur
                 true
             end
 
-            def meta
+            def raw
                 @meta
             end
 
