@@ -88,6 +88,14 @@ module Murmur
             end
             alias :delete :destroy!
 
+            def start!
+                @interface.start unless running?
+            end
+
+            def stop!
+                @interface.stop if running?
+            end
+
             def restart!
                 @interface.stop if running?
                 @interface.start
