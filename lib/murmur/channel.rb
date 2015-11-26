@@ -71,6 +71,11 @@ module Murmur
                 @channel
             end
 
+            def method_missing(method, *args, &block)
+                return super unless @channel.respond_to?(method)
+                @channel.send(method, *args, &block)
+            end
+
             private
 
             def update

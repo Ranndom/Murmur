@@ -121,10 +121,9 @@ module Murmur
                 @interface
             end
 
-            def method_missing(method, *args)
-                method = method.to_s
-                method.gsub!(/_([a-z])/) { $1.upcase }
-                ret = @interface.send method, *args
+            def self.method_missing(method, *args, &block)
+                return super unless @interface.respond_to?(method)
+                @interface.send(method, *args, &block)
             end
 
         end

@@ -85,6 +85,11 @@ module Murmur
                 true
             end
 
+            def self.method_missing(method, *args, &block)
+                return super unless @meta.respond_to?(method)
+                @meta.send(method, *args, &block)
+            end
+
             def raw
                 @meta
             end

@@ -181,6 +181,11 @@ module Murmur
                 @user
             end
 
+            def method_missing(method, *args, &block)
+                return super unless @user.respond_to?(method)
+                @user.send(method, *args, &block)
+            end
+
             private
 
             def update
