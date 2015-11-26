@@ -66,5 +66,5 @@ user = server.users.first
 user.name = "New name!"
 ```
 
-The #raw function on Murmur::API objects will return the raw Murmur object, allowing calling of unimplemented functions.
+The #raw function on Murmur::API objects will return the raw Murmur object, allowing calling of unimplemented functions, or simply call the unimplemented function on the object and it'll be passed to the raw Murmur object.
 
